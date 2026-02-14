@@ -1,8 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { browserRouter } from "./router";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
-import AuthContaxtProvider from "./context/authContaxtProvider";
-import UserContaxtProvider from "./context/userContextProvider";
+import AuthContaxtProvider from "./context/AuthContaxtProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
@@ -14,12 +13,10 @@ export default function App() {
 
       <QueryClientProvider client={queryClientConfig}>
         <AuthContaxtProvider>
-          <UserContaxtProvider>
             <HeroUIProvider>
               <ToastProvider placement="top-center" />
               <RouterProvider router={browserRouter} />
             </HeroUIProvider>
-          </UserContaxtProvider>
         </AuthContaxtProvider>
       </QueryClientProvider>
     </>
