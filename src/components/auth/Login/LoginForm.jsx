@@ -6,7 +6,7 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { authContaxt } from "../../../context/authContaxtProvider";
+import { authContaxt } from "../../../context/AuthContaxtProvider";
 // {
 //     "name": "Ahmed Bahnasy",
 //     "email":"bahnasy2040101@gmail.com",

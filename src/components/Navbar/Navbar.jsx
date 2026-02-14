@@ -11,7 +11,7 @@ import {
 } from "@heroui/react";
 import { MessageCircleHeart, Search } from "lucide-react";
 import { useContext } from "react";
-import { authContaxt } from "../../context/authContaxtProvider";
+import { authContaxt } from "../../context/AuthContaxtProvider";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import avatar from "../../assets/avatars/avatar-1.png"

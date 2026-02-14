@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { authContaxt } from '../../context/authContaxtProvider';
+import { authContaxt } from '../../context/AuthContaxtProvider';
 import PostCard from '../Home/PostCard';
 
 export default function PostDetials() {

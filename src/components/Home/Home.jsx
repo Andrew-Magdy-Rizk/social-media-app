@@ -6,7 +6,7 @@ import PostCard from "./PostCard";
 import RightSide from "./RightSide";
 import axios from "axios";
 import React, { useContext } from "react";
-import { authContaxt } from "../../context/authContaxtProvider";
+import { authContaxt } from "../../context/AuthContaxtProvider";
 
 
 export default function Home() {

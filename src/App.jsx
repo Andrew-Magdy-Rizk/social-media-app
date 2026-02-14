@@ -1,8 +1,8 @@
 import { RouterProvider } from "react-router-dom";
 import { browserRouter } from "./router";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
-import AuthContaxtProvider from "./context/AuthContaxtProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthContaxtProvider from "./context/AuthContaxtProvider";
 
 
 const queryClientConfig = new QueryClient();
