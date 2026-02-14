@@ -14,7 +14,7 @@ export default function Home() {
   const { token } = useContext(authContaxt);
 
   const getPosts = () => {
-    return axios.get("https://linked-posts.routemisr.com/posts?limit=50&sort=createdAt", {
+    return axios.get("https://linked-posts.routemisr.com/posts?limit=20&sort=-createdAt", {
       headers: {
         token
       }
