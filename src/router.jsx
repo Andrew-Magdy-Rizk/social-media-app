@@ -5,7 +5,7 @@ import Login from "./components/auth/Login/Login";
 import Register from "./components/auth/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectRoute from "./middlewares/ProtectRoute";
-import ProtectAuthRoute from "./middlewares/protectAuthRoute";
+import ProtectAuthRoute from "./middlewares/ProtectAuthRoute";
 import Profile from "./components/Profile/Profile";
 import PostDetials from "./components/PostDetials/PostDetials";
 
