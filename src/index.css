@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+@plugin './config/hero.js';
+/* Note: You may need to change the path to fit your project structure */
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+
+* {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+@theme {
+    --background-light: #f6f7f8;
+    --primary-color: #137FEC;
+    --background-dark: #101922;
+}
