@@ -7,6 +7,8 @@ import RightSide from "./RightSide";
 import axios from "axios";
 import React, { useContext } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
+import { Loader2 } from "lucide-react";
+import { addToast } from "@heroui/react";
 
 
 export default function Home() {
@@ -20,14 +22,22 @@ export default function Home() {
       }
     })
   }
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["getPosts"],
     queryFn: getPosts
   })
 
 
   if (isLoading) {
-    return false
+    return <section className="w-screen h-screen bg-gray-100 flex justify-center items-center"><span className="animate-spinner-linear-spin inline-block"><Loader2 size={32} className="text-primary" /></span></section>
+  }
+
+  if (isError) {
+    return addToast({
+      title: error.response.statusText,
+      description: error.response.data?.error,
+      color: "danger",
+    });
   }
 
   const posts = data.data?.posts || [];
