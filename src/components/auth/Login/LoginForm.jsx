@@ -30,18 +30,20 @@ export default function LoginForm() {
     const myHandelSubmit = async (formData) => {
         try {
             setIsLoading(true);
-            const res = await axios.post("https://linked-posts.routemisr.com/users/signin", formData);
+            const res = await axios.post("https://route-posts.routemisr.com/users/signin", formData);
+            console.log(res);
+            
             addToast({
-                title: res.data.message,
+                title: res.data.data?.message,
                 color: "success",
             });
-            handelLogin(res.data?.token)
+            handelLogin(res.data.data?.token)
             navigate("/")
         } catch (err) {
-            console.log("err", err.response.data.error);
+            console.log("err", err.response.data.message);
             addToast({
                 title: err.response.statusText,
-                description: err.response.data?.error,
+                description: err.response.data?.message,
                 color: "danger",
             });
         } finally {

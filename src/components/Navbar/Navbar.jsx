@@ -25,7 +25,7 @@ export default function MyNavbar() {
   const { token, handelLogOut } = useContext(authContaxt);
 
   const getUser = () => {
-    return axios.get("https://linked-posts.routemisr.com/users/profile-data", {
+    return axios.get("https://route-posts.routemisr.com/users/profile-data", {
       headers: {
         token
       }
@@ -36,7 +36,9 @@ export default function MyNavbar() {
     queryFn: getUser,
   })
 
-  const user = data?.data?.user;
+  const user = data?.data?.data?.user;
+
+  
 
 
 

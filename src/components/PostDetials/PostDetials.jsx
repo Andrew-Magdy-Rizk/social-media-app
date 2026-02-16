@@ -13,7 +13,7 @@ export default function PostDetials() {
     const { token } = useContext(authContaxt);
 
     const getPostDetials = () => {
-        return axios.get(`https://linked-posts.routemisr.com/posts/${id}`, {
+        return axios.get(`https://route-posts.routemisr.com/posts/${id}`, {
             headers: {
                 token
             }

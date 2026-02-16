@@ -23,9 +23,11 @@ const registerSchema = z.object({
     dateOfBirth: z.coerce.date("Invalid date").refine((test) => {
 
         return new Date().getFullYear() - test.getFullYear() >= 18;
-    }, "must above 18").transform((date) => {
-        return `${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-    }),
+    }, "must above 18")
+    // .transform((date) => {
+    //     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    // })
+    ,
     gender: z.enum(["male", "female"])
 }).refine((obj) => {
 
@@ -41,17 +43,17 @@ export default function RegisterForm() {
     const myHandelSubmit = async (formData) => {
         try {
             setIsLoading(true);
-            const res = await axios.post("https://linked-posts.routemisr.com/users/signup", formData);
+            const res = await axios.post("https://route-posts.routemisr.com/users/signup", formData);
             addToast({
-                title: res.data.message,
+                title: res.data.data.message,
                 color: "success",
             });
             navigate("/login")
         } catch (err) {
-            console.log("err", err.response.data.error);
+            console.log("err", err.response.data?.message);
             addToast({
                 title: err.response.statusText,
-                description: err.response.data?.error,
+                description: err.response.data?.message,
                 color: "danger",
             });
         } finally {
