@@ -74,6 +74,7 @@ export default function RegisterForm() {
 
         resolver: zodResolver(registerSchema)
     })
+    
 
     return (
         <>

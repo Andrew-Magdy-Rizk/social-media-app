@@ -10,7 +10,6 @@ const queryClientConfig = new QueryClient();
 export default function App() {
   return (
     <>
-
       <QueryClientProvider client={queryClientConfig}>
         <AuthContaxtProvider>
             <HeroUIProvider>

@@ -32,7 +32,7 @@ export default function LoginForm() {
             setIsLoading(true);
             const res = await axios.post("https://route-posts.routemisr.com/users/signin", formData);
             console.log(res);
-            
+
             addToast({
                 title: res.data.data?.message,
                 color: "success",
@@ -59,7 +59,11 @@ export default function LoginForm() {
         mode: "onSubmit",
 
         resolver: zodResolver(registerSchema)
-    })
+    });
+
+    
+    console.log("errors", errors);
+
 
     return (
         <>
@@ -118,10 +122,10 @@ export default function LoginForm() {
                 </Checkbox>
 
                 <Button disabled={isLoading} size="lg" type="submit" className="w-full bg-primary text-white font-bold group" variant="flat">
-                    {isLoading ? <LoaderCircle className="animate-spinner-ease-spin" /> :<div className="flex gap-2">Log In<span className="group-hover:translate-x-0.5 duration-300"><MoveRight color="white"/></span></div>} 
+                    {isLoading ? <LoaderCircle className="animate-spinner-ease-spin" /> : <div className="flex gap-2">Log In<span className="group-hover:translate-x-0.5 duration-300"><MoveRight color="white" /></span></div>}
                 </Button>
             </Form>
-            
+
 
 
 
