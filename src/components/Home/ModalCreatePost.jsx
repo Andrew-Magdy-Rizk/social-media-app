@@ -1,98 +1,9 @@
-import { ChevronDown, CircleX, Earth, Ellipsis, Gift, Image, ImagePlay, LoaderCircle, LocationEdit, MapPin, Smile, SmileIcon } from "lucide-react";
-import avatar from "../../assets/avatars/avatar-1.png"
-import { addToast, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@heroui/react";
-import { useContext, useRef, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { authContaxt } from "../../context/AuthContaxtProvider";
-export default function CreatePost() {
-    const [contentPost, setContentPost] = useState("");
-    const [preview, setPreview] = useState(null);
-    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-    const { token } = useContext(authContaxt);
-    const queryClient = useQueryClient();
-    const ImageInput = useRef();
-
-    const handelChangePreview = (e) => {
-        const file = e?.target?.files[0];
-
-        if (!file) {
-            ImageInput.current.value = "";
-            return setPreview(null);
-        };
-
-        setPreview(file);
-
-    }
-
-    const pushPost = () => {
-        const formdata = new FormData();
-
-        if (preview) {
-            formdata.append("image", preview);
-        }
-        formdata.append("body", contentPost);
 
 
-        return axios.post("https://route-posts.routemisr.com/posts", formdata, {
-            headers: {
-                token: token
-            }
-        })
-    }
-    const { mutate, isPending } = useMutation({
-        mutationFn: pushPost,
-
-
-        onSuccess: () => {
-
-            addToast({
-                title: "created post",
-                color: "success"
-            })
-            setContentPost("");
-            setPreview(null);
-            ImageInput.current.value = "";
-            onClose();
-            queryClient.invalidateQueries({ queryKey: ["getPosts"] })
-        },
-
-        onError: (err) => {
-            addToast({
-                title: err.response.data.message,
-                color: "danger",
-            })
-        }
-    })
+export default function ModalCreatePost({ children }) {
     return (
         <>
-            <div onClick={onOpen} className="rounded-xl border border-primary/10 bg-white p-4 shadow-sm">
-                <div className="flex gap-2">
-                    <img src={avatar} alt="avatar" className="h-12 w-12 shrink-0 rounded-full bg-cover bg-center border-2 border-primary/10" />
-                    <div className="flex flex-1 flex-col gap-2">
-                        <textarea id="fakeCreate" className="w-full resize-none border-none bg-transparent p-0 text-base placeholder:text-[#bac4ce] focus:ring-0 focus:outline-0 " placeholder="What's happening?" rows={2} defaultValue={""} />
-                        <div className="flex items-center justify-between border-t border-primary/5 pt-3">
-                            <div className="flex gap-2">
-                                <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#617589] hover:bg-primary/10 hover:text-primary transition-all">
-                                    <Image />
-                                </button>
-                                <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#617589] hover:bg-primary/10 hover:text-primary transition-all">
-                                    <ImagePlay />
-                                </button>
-                                <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#617589] hover:bg-primary/10 hover:text-primary transition-all">
-                                    <Smile />
-                                </button>
-                                <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#617589] hover:bg-primary/10 hover:text-primary transition-all">
-                                    <MapPin />
-                                </button>
-                            </div>
-                            <button className="rounded-full bg-primary sm:px-6 px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-primary/90 transition-all">Post</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* <Button onPress={onOpen}>Open Modal</Button> */}
             <Modal size="xl" placement="center" scrollBehavior={"inside"} isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur" classNames={
                 {
                     closeButton: "m-2 bg-gray-100 hover:bg-gray-200 duration-300",
@@ -137,7 +48,7 @@ export default function CreatePost() {
                                             <div class="flex h-9 w-9 items-center justify-center rounded-full text-green-500 hover:bg-slate-100 transition-colors" title="Photo/Video">
                                                 <Image />
                                             </div>
-                                            <input accept="image/*" ref={ImageInput} onChange={handelChangePreview} type="file" hidden />
+                                            <input ref={ImageInput} onChange={handelChangePreview} type="file" hidden />
                                         </label>
                                         <button class="flex h-9 w-9 items-center justify-center rounded-full text-blue-500 hover:bg-slate-100 transition-colors" title="GIF">
                                             <Gift />
@@ -176,6 +87,7 @@ export default function CreatePost() {
                     )}
                 </ModalContent>
             </Modal>
+
         </>
     )
 }

@@ -143,7 +143,6 @@ export default function Profile() {
           </form>
         </section>
       </div>
-
     </>
 
 
