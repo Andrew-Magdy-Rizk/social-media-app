@@ -1,3 +1,4 @@
+import { Camera, LockKeyhole, Pencil, Share2 } from "lucide-react";
 
 export default function Profile() {
   return (
@@ -7,15 +8,15 @@ export default function Profile() {
         <div className="h-48 md:h-64 w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
           <img className="w-full h-full object-cover" data-alt="Abstract purple and blue gradient cover image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq8ZTYgvkSEPYXwH-FVwIQnIAsW1MBuZB6k8FHn-i7kibjIk1DwdcqpOmCP5vHAdIubf5ylFn6obt3oDc4yhEqBrbDWPPDEfh9RIdCmm1wyvWh6q3ckoHCa9kBkR-mrZO4IhXA0HuJt1h6WrwcW6-ssoFcKQjvr5Je1ntaKu-4jri8KR2G7Tz4pMBiGtZkaqlGqiYT8vGu9A_K7y1F1EUUM2s2j5rjs7rvbBxDRBNh2aAT-6ASsNz3UJLCfTHxg6z_jUTXHmJjHRM" />
           <button className="absolute top-4 right-4 bg-black/30 hover:bg-black/50 text-white p-2 rounded-lg backdrop-blur-md transition-all">
-            <span className="material-symbols-outlined text-sm">edit</span>
+            <Pencil size={18} />
           </button>
         </div>
         <div className="px-6 pb-6">
           <div className="relative flex justify-between items-end -mt-16 mb-4">
             <div className="relative group">
               <img className="size-32 md:size-40 rounded-full border-4 border-white dark:border-background-dark shadow-xl object-cover bg-white" data-alt="Alex Rivers circular profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGsgYMo4JGMMtvN1bzAefMabmcMZlAL_Z2w7nuKIS3I8DMj6VJVO_b17AtqI-IaivydCZVWYx9D5tSvfushZyhOZ_9D09o4ZgyZpd_JXWJUGfMwJS4KhFEJ94zcSuXZMLHe1BMQwzfg0YSpTxrKUO_6Hnql--gpxNT3wMZg79fv2dR9x3NKdHNhNkF7mgQsTcoU-gXRr4JgUkdktdpbrH5QOiYZjQXFZPN9X666lKi1BV5eA68d-3KbUopH7CJx874e3PiPoNI8P4" />
-              <button className="absolute bottom-2 right-2 size-10 bg-primary text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white dark:border-background-dark hover:scale-105 transition-transform">
-                <span className="material-symbols-outlined text-lg">photo_camera</span>
+              <button className="p-2 absolute bottom-2 right-2 size-10 bg-primary text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white dark:border-background-dark hover:scale-105 transition-transform">
+                <Camera />
               </button>
             </div>
             <div className="flex gap-2 mb-2">
@@ -23,7 +24,7 @@ export default function Profile() {
                 Edit Profile
               </button>
               <button className="size-10 flex items-center justify-center border border-slate-200 dark:border-slate-700 rounded-xl font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <span className="material-symbols-outlined">share</span>
+                <Share2 />
               </button>
             </div>
           </div>
@@ -112,7 +113,7 @@ export default function Profile() {
         <section className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-3 mb-6">
             <div className="size-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined">lock_reset</span>
+              <LockKeyhole />
             </div>
             <div>
               <h2 className="text-xl font-bold">Security &amp; Password</h2>
