@@ -17,8 +17,8 @@ import { authContaxt } from "../../../context/AuthContaxtProvider";
 // }
 
 const registerSchema = z.object({
-    email: z.email("Invalid Email"),
     password: z.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/, "Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"),
+    email: z.email("Invalid Email"),
 })
 
 export default function LoginForm() {
@@ -32,9 +32,9 @@ export default function LoginForm() {
             setIsLoading(true);
             const res = await axios.post("https://route-posts.routemisr.com/users/signin", formData);
             console.log(res);
-
+            
             addToast({
-                title: res.data.data?.message,
+                title: res.data.message,
                 color: "success",
             });
             handelLogin(res.data.data?.token)
@@ -56,14 +56,14 @@ export default function LoginForm() {
             email: "",
             password: "",
         },
+
         mode: "onSubmit",
 
         resolver: zodResolver(registerSchema)
     });
 
-    
     console.log("errors", errors);
-
+    
 
     return (
         <>
@@ -82,7 +82,7 @@ export default function LoginForm() {
                         label="Email"
                         labelPlacement="outside"
                         placeholder="Enter your email"
-                        type="email"
+                        type="text"
                         variant="bordered"
                         size="lg"
                         color="primary"
@@ -122,10 +122,10 @@ export default function LoginForm() {
                 </Checkbox>
 
                 <Button disabled={isLoading} size="lg" type="submit" className="w-full bg-primary text-white font-bold group" variant="flat">
-                    {isLoading ? <LoaderCircle className="animate-spinner-ease-spin" /> : <div className="flex gap-2">Log In<span className="group-hover:translate-x-0.5 duration-300"><MoveRight color="white" /></span></div>}
+                    {isLoading ? <LoaderCircle className="animate-spinner-ease-spin" /> :<div className="flex gap-2">Log In<span className="group-hover:translate-x-0.5 duration-300"><MoveRight color="white"/></span></div>} 
                 </Button>
             </Form>
-
+            
 
 
 

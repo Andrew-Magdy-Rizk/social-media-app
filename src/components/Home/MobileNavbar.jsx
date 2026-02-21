@@ -1,12 +1,23 @@
 import { Bell, Home, Plus, Search, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MobileNavbar() {
+
+    const { pathname } = useLocation();
+
+    const [activeLink, setActiveLink] = useState(pathname);
+
+    useEffect(() => {
+        setActiveLink(pathname);
+    }, [pathname]);
+
     return (
         <>
-            <nav className="fixed bottom-0 left-0 flex w-full border-t border-primary/10 bg-white p-3 lg:hidden">
-                <a className="flex flex-1 flex-col items-center gap-1 text-primary" href="#">
+            <nav className="fixed bottom-0 z-10 left-0 flex w-full border-t border-primary/10 bg-white p-3 lg:hidden">
+                <Link to={"/"} onClick={() => setActiveLink("/")} className={`flex flex-1 flex-col items-center gap-1 ${activeLink === "/" ? "text-primary" : "text-[#617589]"}`}>
                     <span className="material-symbols-outlined"><Home /></span>
-                </a>
+                </Link>
                 <a className="flex flex-1 flex-col items-center gap-1 text-[#617589]" href="#">
                     <span className="material-symbols-outlined"><Search /></span>
                 </a>
@@ -18,9 +29,9 @@ export default function MobileNavbar() {
                 <a className="flex flex-1 flex-col items-center gap-1 text-[#617589]" href="#">
                     <span className="material-symbols-outlined"><Bell /></span>
                 </a>
-                <a className="flex flex-1 flex-col items-center gap-1 text-[#617589]" href="#">
+                <Link to={"/profile"} onClick={() => setActiveLink("/profile")} className={`flex flex-1 flex-col items-center gap-1 ${activeLink === "/profile" ? "text-primary" : "text-[#617589]"}`}>
                     <span className="material-symbols-outlined"><User /></span>
-                </a>
+                </Link>
             </nav>
         </>
     )

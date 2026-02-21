@@ -45,12 +45,11 @@ export default function RegisterForm() {
             setIsLoading(true);
             const res = await axios.post("https://route-posts.routemisr.com/users/signup", formData);
             addToast({
-                title: res.data.data.message,
+                title: res.data.message,
                 color: "success",
             });
             navigate("/login")
         } catch (err) {
-            console.log("err", err.response.data?.message);
             addToast({
                 title: err.response.statusText,
                 description: err.response.data?.message,
@@ -109,7 +108,7 @@ export default function RegisterForm() {
                         label="Email"
                         labelPlacement="outside"
                         placeholder="Enter your email"
-                        type="email"
+                        type="text"
                         variant="bordered"
                         size="lg"
                         color="primary"

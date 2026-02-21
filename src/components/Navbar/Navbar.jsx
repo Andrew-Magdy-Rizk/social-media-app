@@ -22,7 +22,7 @@ const STATIC_IMAGE = avatar;
 
 export default function MyNavbar() {
 
-  const { token, handelLogOut } = useContext(authContaxt);
+  const { token, handelLogOut, handelSetUserId } = useContext(authContaxt);
 
   const getUser = () => {
     return axios.get("https://route-posts.routemisr.com/users/profile-data", {
@@ -34,16 +34,20 @@ export default function MyNavbar() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["getUser"],
     queryFn: getUser,
+
+    refetchOnWindowFocus: false,
   })
+
 
   const user = data?.data?.data?.user;
 
-  
-
+  if (!isLoading && !isError) {
+    handelSetUserId(user._id)
+  }
 
 
   return (
-    <Navbar position="sticky" isBordered>
+    <Navbar position="sticky" isBordered className="z-10">
       <NavbarContent justify="center">
         <NavbarBrand className="mr-4">
           <MessageCircleHeart size={32} className="text-primary me-2" />
@@ -78,7 +82,13 @@ export default function MyNavbar() {
               color="secondary"
               name="Jason Hughes"
               size="sm"
-              src={STATIC_IMAGE}
+              // onError={(e) => {
+              //   e.target.src = avatar
+              // }}
+              // onLoad={(e) => {
+              //   e.target.src = avatar
+              // }}
+              src={user?.photo || STATIC_IMAGE}
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">

@@ -7,11 +7,10 @@ export const authContaxt = createContext();
 
 export default function AuthContaxtProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("tkn"));
+  const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
+
 
   const handelLogin = (tkn) => {
-
-    console.log("tkn", token);
-
     setToken(tkn);
     localStorage.setItem("tkn", tkn);
   };
@@ -21,8 +20,13 @@ export default function AuthContaxtProvider({ children }) {
     setToken(null);
   };
 
+  const handelSetUserId = (id) => {
+    setUserId(id)
+    localStorage.setItem("userId", id);
+  }
+
   return (
-    <authContaxt.Provider value={{ token, handelLogin, handelLogOut }}>
+    <authContaxt.Provider value={{ token, userId, handelLogin, handelLogOut, handelSetUserId }}>
 
       {children}
 

@@ -6,6 +6,8 @@ import Footer from "../../Footer/Footer";
 
 
 export default function Login() {
+
+  
   return (
     <section className="bg-background-light dark:bg-background-dark text-[#111418] antialiased">
       <div className="flex min-h-screen">

@@ -6,7 +6,7 @@ import avatar3 from "../../assets/avatars/avatar-3.png"
 export default function RightSide() {
     return (
         <>
-            <aside className="sticky top-0 hidden h-screen w-80 flex-col gap-6 p-4 py-8 xl:flex">
+            <aside className="sticky top-12 hidden h-screen w-80 flex-col gap-6 p-4 py-8 xl:flex">
                 {/* Suggested Section */}
                 <div className="rounded-xl bg-white p-4 shadow-sm border border-primary/5">
                     <h2 className="mb-4 text-sm font-bold text-[#111418]">Suggested for you</h2>
