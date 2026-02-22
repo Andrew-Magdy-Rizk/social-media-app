@@ -54,10 +54,7 @@ export default function ChangePassword() {
 
         onSuccess: (data) => {
 
-            console.log("res data", data);
-
             handelLogin(data.data?.data?.token);
-
 
             addToast({
                 title: "Password changed",

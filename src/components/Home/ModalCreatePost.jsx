@@ -1,11 +1,12 @@
 
-import { ChevronDown, CircleX, Earth, Ellipsis, Gift, Image, LoaderCircle, LocationEdit, SmileIcon } from "lucide-react";
+import { ChevronDown, CircleX, Earth, Ellipsis, Gift, ImageIcon, LoaderCircle, LocationEdit, SmileIcon } from "lucide-react";
 import avatar from "../../assets/avatars/avatar-1.png"
-import { addToast, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@heroui/react";
+import { addToast, Button, Image, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@heroui/react";
 import { useContext, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { authContaxt } from "../../context/AuthContaxtProvider";
+import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 
 
 export default function ModalCreatePost({ children }) {
@@ -15,6 +16,7 @@ export default function ModalCreatePost({ children }) {
     const [preview, setPreview] = useState(null);
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const { token } = useContext(authContaxt);
+    const { userInfo } = useContext(userInfoContaxt);
     const queryClient = useQueryClient();
     const ImageInput = useRef();
 
@@ -44,7 +46,9 @@ export default function ModalCreatePost({ children }) {
                 token: token
             }
         })
-    }
+    };
+
+    
     const { mutate, isPending } = useMutation({
         mutationFn: pushPost,
 
@@ -68,15 +72,17 @@ export default function ModalCreatePost({ children }) {
                 color: "danger",
             })
         }
-    })
+    });
+
+
     return (
         <>
 
-<div onClick={onOpen}>
-        {children}
-</div>
+            <div onClick={onOpen}>
+                {children}
+            </div>
 
-            <Modal size="xl" placement="center" scrollBehavior={"inside"} isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur" classNames={
+            <Modal size="2xl" placement="center" scrollBehavior={"inside"} isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur" classNames={
                 {
                     closeButton: "m-2 bg-gray-100 hover:bg-gray-200 duration-300",
                     header: "border-b-1 border-gray-200",
@@ -89,9 +95,17 @@ export default function ModalCreatePost({ children }) {
                             <ModalHeader className="flex flex-col gap-1 text-center ">Create Post</ModalHeader>
                             <ModalBody>
                                 <div className="flex items-center gap-3">
-                                    <img loading="eager" src={avatar} onError={(e) => {
+                                    <Image
+                                        // loading="lazy"
+                                        alt="Avatar"
+                                        // fallbackSrc={avatar}
+                                        height={40}
+                                        width={40}
+                                        src={userInfo.photo}
+                                    />
+                                    {/* <img loading="eager" src={avatar} onError={(e) => {
                                         e.target.src = avatar
-                                    }} alt="avatar" className="h-10 w-10 rounded-full bg-cover bg-center border border-primary/5" />
+                                    }} alt="avatar" className="h-10 w-10 rounded-full bg-cover bg-center border border-primary/5" /> */}
                                     <div className="flex flex-col">
                                         <span className="text-sm font-bold text-[#111418]">Name</span>
                                         <button className="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200">
@@ -118,7 +132,7 @@ export default function ModalCreatePost({ children }) {
                                     <div className="flex items-center gap-1">
                                         <label>
                                             <div className="flex h-9 w-9 items-center justify-center rounded-full text-green-500 hover:bg-slate-100 transition-colors" title="Photo/Video">
-                                                <Image />
+                                                <ImageIcon />
                                             </div>
                                             <input accept="image/*" ref={ImageInput} onChange={handelChangePreview} type="file" hidden />
                                         </label>
@@ -141,10 +155,17 @@ export default function ModalCreatePost({ children }) {
                                 {preview &&
                                     <>
                                         <div className="w-full relative">
-                                            <img src={URL.createObjectURL(preview)} alt={preview} className="w-full mx-auto object-cover rounded-xl" />
-                                            <button onClick={() => handelChangePreview(null)} className="absolute cursor-pointer right-2 top-2 text-gray-400">
+                                            <Image
+                                                // loading="lazy"
+                                                alt={preview}
+                                                // fallbackSrc={avatar}
+                                                width="100%"
+                                                src={URL.createObjectURL(preview)}
+                                            />
+                                            {/* <img src={URL.createObjectURL(preview)} alt={preview} className="w-full mx-auto object-cover rounded-xl" /> */}
+                                            <div onClick={() => handelChangePreview(null)} className="absolute cursor-pointer right-2 top-2 text-gray-400 z-10">
                                                 <CircleX />
-                                            </button>
+                                            </div>
                                         </div>
                                     </>
                                 }

@@ -61,7 +61,7 @@ export default function PostCard({ post, showAllComments = false }) {
                         <Image
                             loading="eager"
                             alt={post.body}
-                            fallbackSrc={avatar}
+                            // fallbackSrc={avatar}
                             height={40}
                             src={photo}
                             width={40}

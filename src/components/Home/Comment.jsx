@@ -91,6 +91,7 @@ export default function Comment({ comment, postId, queryKey }) {
                             // fallbackSrc={avatar}
                             height={80}
                             src={image}
+                            className="mb-3"
                         />
                     }
                     {/* <img className="h-20 object-cover rounded-xl mb-3" src={image} alt={content} /> */}

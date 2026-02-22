@@ -74,8 +74,9 @@ export default function CreateComment({ postId, queryKey }) {
                         <Image
                             // loading="lazy"
                             alt="Avatar"
-                            fallbackSrc={avatar}
+                            // fallbackSrc={avatar}
                             height={40}
+                            width={40}
                             src={userInfo.photo || avatar}
                         />
                         {/* <img alt="My avatar" className="w-full h-full rounded-full object-cover" src={avatar} /> */}
