@@ -56,6 +56,7 @@ export default function CreateComment({ postId, queryKey }) {
             setPreview(null);
             ImageInput.current.value = "";
             queryClient.invalidateQueries({ queryKey: queryKey })
+            queryClient.invalidateQueries({ queryKey: ["feedPosts"] })
         },
 
         onError: (err) => {
