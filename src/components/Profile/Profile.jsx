@@ -15,9 +15,7 @@ import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 export default function Profile() {
 
   const { userInfo } = useContext(userInfoContaxt);
-  const [hasPosts, setHasPosts] = useState(true);
 
-console.log("hasPosts", hasPosts);
 
 
 
@@ -73,9 +71,11 @@ console.log("hasPosts", hasPosts);
       </div>
       {/* Tabs Section  */}
       <div className="flex w-full flex-col">
-        <Tabs aria-label="Disabled Options" disabledKeys={[!hasPosts && "posts" ,userInfo.bookmarksCount > 0 && "bookmark" ,userInfo.followersCount > 0 && "followers",userInfo.followingCount > 0 && "followers"  ]}>
+        <Tabs aria-label="Disabled Options" disabledKeys={[userInfo.bookmarksCount === 0 && "bookmark", userInfo.followersCount === 0 && "followers", userInfo.followingCount === 0 && "following"]}>
           <Tab key="posts" title="Posts">
-            <FeedPosts setHasPosts={setHasPosts} />
+
+            <FeedPosts />
+            
           </Tab>
           <Tab key="bookmark" title="Bookmark">
             <Bookmark />

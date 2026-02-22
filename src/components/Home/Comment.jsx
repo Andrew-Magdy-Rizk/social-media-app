@@ -1,7 +1,7 @@
 import { Edit, Ellipsis, Heart, LoaderCircle, Trash } from "lucide-react";
 import avatar from "../../assets/avatars/avatar-1.png"
 import { getTimeAgo } from "../../utils/getTimeAgo";
-import { addToast, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
+import { addToast, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image } from "@heroui/react";
 import { useContext, useState } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -85,8 +85,15 @@ export default function Comment({ comment, postId, queryKey }) {
                         {content}
                     </p>
                     {image &&
-                        <img className="h-20 object-cover rounded-xl mb-3" src={image} alt={content} />
+                    <Image
+                            // loading="lazy"
+                            alt={content}
+                            // fallbackSrc={avatar}
+                            height={80}
+                            src={image}
+                        />
                     }
+                    {/* <img className="h-20 object-cover rounded-xl mb-3" src={image} alt={content} /> */}
                     <div className="flex items-center gap-4">
                         <button className="text-xs font-bold text-gray-500 hover:text-primary">Reply</button>
                         <button className="flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-red-500">

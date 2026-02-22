@@ -1,8 +1,80 @@
 
+import { ChevronDown, CircleX, Earth, Ellipsis, Gift, Image, LoaderCircle, LocationEdit, SmileIcon } from "lucide-react";
+import avatar from "../../assets/avatars/avatar-1.png"
+import { addToast, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@heroui/react";
+import { useContext, useRef, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { authContaxt } from "../../context/AuthContaxtProvider";
+
 
 export default function ModalCreatePost({ children }) {
+
+
+    const [contentPost, setContentPost] = useState("");
+    const [preview, setPreview] = useState(null);
+    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+    const { token } = useContext(authContaxt);
+    const queryClient = useQueryClient();
+    const ImageInput = useRef();
+
+    const handelChangePreview = (e) => {
+        const file = e?.target?.files[0];
+
+        if (!file) {
+            ImageInput.current.value = "";
+            return setPreview(null);
+        };
+
+        setPreview(file);
+
+    }
+
+    const pushPost = () => {
+        const formdata = new FormData();
+
+        if (preview) {
+            formdata.append("image", preview);
+        }
+        formdata.append("body", contentPost);
+
+
+        return axios.post("https://route-posts.routemisr.com/posts", formdata, {
+            headers: {
+                token: token
+            }
+        })
+    }
+    const { mutate, isPending } = useMutation({
+        mutationFn: pushPost,
+
+
+        onSuccess: () => {
+
+            addToast({
+                title: "created post",
+                color: "success"
+            })
+            setContentPost("");
+            setPreview(null);
+            ImageInput.current.value = "";
+            onClose();
+            queryClient.invalidateQueries({ queryKey: ["getPosts"] })
+        },
+
+        onError: (err) => {
+            addToast({
+                title: err.response.data.message,
+                color: "danger",
+            })
+        }
+    })
     return (
         <>
+
+<div onClick={onOpen}>
+        {children}
+</div>
 
             <Modal size="xl" placement="center" scrollBehavior={"inside"} isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur" classNames={
                 {
@@ -22,7 +94,7 @@ export default function ModalCreatePost({ children }) {
                                     }} alt="avatar" className="h-10 w-10 rounded-full bg-cover bg-center border border-primary/5" />
                                     <div className="flex flex-col">
                                         <span className="text-sm font-bold text-[#111418]">Name</span>
-                                        <button class="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200">
+                                        <button className="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200">
                                             <Earth size={12} />
                                             Public
                                             <ChevronDown size={12} />
@@ -41,25 +113,25 @@ export default function ModalCreatePost({ children }) {
                                     />
                                 </div>
                                 {/* <!-- Toolbar Container --> */}
-                                <div class="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3 shadow-sm">
-                                    <p class="text-sm font-semibold text-slate-700">Add to your post</p>
-                                    <div class="flex items-center gap-1">
+                                <div className="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3 shadow-sm">
+                                    <p className="text-sm font-semibold text-slate-700">Add to your post</p>
+                                    <div className="flex items-center gap-1">
                                         <label>
-                                            <div class="flex h-9 w-9 items-center justify-center rounded-full text-green-500 hover:bg-slate-100 transition-colors" title="Photo/Video">
+                                            <div className="flex h-9 w-9 items-center justify-center rounded-full text-green-500 hover:bg-slate-100 transition-colors" title="Photo/Video">
                                                 <Image />
                                             </div>
-                                            <input ref={ImageInput} onChange={handelChangePreview} type="file" hidden />
+                                            <input accept="image/*" ref={ImageInput} onChange={handelChangePreview} type="file" hidden />
                                         </label>
-                                        <button class="flex h-9 w-9 items-center justify-center rounded-full text-blue-500 hover:bg-slate-100 transition-colors" title="GIF">
+                                        <button className="flex h-9 w-9 items-center justify-center rounded-full text-blue-500 hover:bg-slate-100 transition-colors" title="GIF">
                                             <Gift />
                                         </button>
-                                        <button class="flex h-9 w-9 items-center justify-center rounded-full text-yellow-500 hover:bg-slate-100 transition-colors" title="Emoji">
+                                        <button className="flex h-9 w-9 items-center justify-center rounded-full text-yellow-500 hover:bg-slate-100 transition-colors" title="Emoji">
                                             <SmileIcon />
                                         </button>
-                                        <button class="flex h-9 w-9 items-center justify-center rounded-full text-red-500 hover:bg-slate-100 transition-colors" title="Location">
+                                        <button className="flex h-9 w-9 items-center justify-center rounded-full text-red-500 hover:bg-slate-100 transition-colors" title="Location">
                                             <LocationEdit />
                                         </button>
-                                        <button class="flex h-9 w-9 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 transition-colors" title="More">
+                                        <button className="flex h-9 w-9 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 transition-colors" title="More">
                                             <Ellipsis />
                                         </button>
                                     </div>

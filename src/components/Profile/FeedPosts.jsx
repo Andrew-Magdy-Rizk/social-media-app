@@ -3,8 +3,9 @@ import { authContaxt } from "../../context/AuthContaxtProvider"
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query"; import SkeletonPost from "../Skeletons/SkeletonPost";
 import PostCard from "../Home/PostCard";
+import { Card, CardBody } from "@heroui/react";
 
-export default function FeedPosts({ setHasPosts }) {
+export default function FeedPosts() {
 
     const { token } = useContext(authContaxt);
 
@@ -29,15 +30,6 @@ export default function FeedPosts({ setHasPosts }) {
 
     });
 
-    useEffect(() => {
-        if (!isError && !isError && data?.data?.data?.posts.length > 0) {
-            console.log("wdawd");
-            setHasPosts(true);
-        }else{
-            
-            setHasPosts(false);
-        }
-    }, [isLoading])
     return (
         <>
 
@@ -49,11 +41,18 @@ export default function FeedPosts({ setHasPosts }) {
                     <SkeletonPost />
                 </>
                     :
-                    data?.data?.data?.posts.map((post) =>
-                        <React.Fragment key={post._id}>
-                            <PostCard post={post} />
-                        </React.Fragment>
-                    )
+                    data?.data?.data?.posts.length > 0 ?
+                        data?.data?.data?.posts.map((post) =>
+                            <React.Fragment key={post._id}>
+                                <PostCard post={post} />
+                            </React.Fragment>
+                        )
+                        :
+                        <Card shadow="none">
+                            <CardBody className="text-center text-2xl">
+                                You Have 0 Posts
+                            </CardBody>
+                        </Card>
                 }
             </div>
 
