@@ -14,7 +14,7 @@ export default function MobileNavbar() {
 
     return (
         <>
-            <nav className="fixed bottom-0 z-10 left-0 flex w-full border-t border-primary/10 bg-white p-3 lg:hidden">
+            <nav className="sticky bottom-0 z-50 left-0 flex w-full border-t border-primary/10 bg-white p-3 lg:hidden">
                 <Link to={"/"} onClick={() => setActiveLink("/")} className={`flex flex-1 flex-col items-center gap-1 ${activeLink === "/" ? "text-primary" : "text-[#617589]"}`}>
                     <span className="material-symbols-outlined"><Home /></span>
                 </Link>

@@ -61,8 +61,6 @@ export default function LoginForm() {
 
         resolver: zodResolver(registerSchema)
     });
-
-    console.log("errors", errors);
     
 
     return (

@@ -40,6 +40,7 @@ export default function PostCard({ post, showAllComments = false }) {
             });
             queryClient.invalidateQueries({ queryKey: ["getPosts"] });
             queryClient.invalidateQueries({ queryKey: ["getPostDetials", postId] });
+            queryClient.invalidateQueries({ queryKey: ["feedPosts"] });
         },
 
         onError: (err) => {
@@ -105,7 +106,7 @@ export default function PostCard({ post, showAllComments = false }) {
                 <div className="flex items-center gap-6 border-y border-primary/5 py-2">
                     <button className="flex items-center gap-1.5 text-[#617589] hover:text-red-500 transition-all">
                         <span className="material-symbols-outlined text-[22px]"><Heart /></span>
-                        <span className="text-xs font-bold">{LikesCount || 0}k</span>
+                        <span className="text-xs font-bold">{LikesCount || 0}</span>
                     </button>
                     <button className="flex items-center gap-1.5 text-primary transition-all">
                         <span className="material-symbols-outlined text-[22px]"><MessageSquare /></span>

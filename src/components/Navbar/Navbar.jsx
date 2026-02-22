@@ -10,12 +10,13 @@ import {
   Avatar,
 } from "@heroui/react";
 import { MessageCircleHeart, Search } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import avatar from "../../assets/avatars/avatar-1.png"
 import { Link } from "react-router-dom";
+import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 
 
 const STATIC_IMAGE = avatar;
@@ -23,6 +24,7 @@ const STATIC_IMAGE = avatar;
 export default function MyNavbar() {
 
   const { token, handelLogOut, handelSetUserId } = useContext(authContaxt);
+  const { handelSetUserInfo } = useContext(userInfoContaxt);
 
   const getUser = () => {
     return axios.get("https://route-posts.routemisr.com/users/profile-data", {
@@ -31,7 +33,7 @@ export default function MyNavbar() {
       }
     })
   };
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["getUser"],
     queryFn: getUser,
 
@@ -41,13 +43,17 @@ export default function MyNavbar() {
 
   const user = data?.data?.data?.user;
 
-  if (!isLoading && !isError) {
-    handelSetUserId(user._id)
-  }
+  useEffect(()=> {
+    if (!isLoading && !isError) {
+      handelSetUserId(user._id);
+      handelSetUserInfo(user);
+      console.log("userInfo", user);
+    };
+  },[token, isLoading])
 
 
   return (
-    <Navbar position="sticky" isBordered className="z-10">
+    <Navbar position="sticky" isBordered className="z-50">
       <NavbarContent justify="center">
         <NavbarBrand className="mr-4">
           <MessageCircleHeart size={32} className="text-primary me-2" />

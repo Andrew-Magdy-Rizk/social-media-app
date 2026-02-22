@@ -1,19 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useContext } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { authContaxt } from '../../context/AuthContaxtProvider';
 import PostCard from '../Home/PostCard';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import SkeletonPost from '../Skeletons/SkeletonPost';
-import { addToast } from '@heroui/react';
+import NotFound from '../NotFound/NotFound';
 
 export default function PostDetials() {
 
     const { id } = useParams();
 
     const { token } = useContext(authContaxt);
-    const navigate = useNavigate();
 
     const getPostDetials = () => {
         return axios.get(`https://route-posts.routemisr.com/posts/${id}`, {
@@ -28,21 +27,15 @@ export default function PostDetials() {
         refetchOnWindowFocus: false,
 
         staleTime: 1000 * 60 * 60 * 5,
+
+        retry: 2,
     })
 
 
-    //   if (isLoading) {
-    //     return <section className="w-screen h-screen bg-gray-100 flex justify-center items-center"><span className="animate-spinner-linear-spin inline-block"><Loader2 size={32} className="text-primary" /></span></section>
-    //   }
 
-    if (isError) {
-        addToast({
-            title: error.response.statusText,
-            description: error.response.data?.error,
-            color: "danger",
-        });
+    if (error && isError) {
 
-        return navigate("/");
+        return <NotFound />;
     }
 
 

@@ -38,8 +38,8 @@ const registerSchema = z.object({
 export default function RegisterForm() {
     const [showPassowrd, setshowPassowrd] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
     const myHandelSubmit = async (formData) => {
         try {
             setIsLoading(true);
@@ -67,13 +67,13 @@ export default function RegisterForm() {
             password: "",
             rePassword: "",
             dateOfBirth: "",
-            gender: "male"
+            gender: "male",
         },
         mode: "onSubmit",
 
         resolver: zodResolver(registerSchema)
-    })
-    
+    });
+
 
     return (
         <>
@@ -156,7 +156,7 @@ export default function RegisterForm() {
                 <div className="my-2 w-full">
                     <label
                         htmlFor="dateOfBirth"
-                        className={`block mb-2 text-md font-medium text-primary dark:text-white ${errors.dateOfBirth?.message ? "text-[#F31260]!":""}`}
+                        className={`block mb-2 text-md font-medium text-primary dark:text-white ${errors.dateOfBirth?.message ? "text-[#F31260]!" : ""}`}
                     >
                         Birth date
                     </label>
