@@ -101,7 +101,7 @@ export default function ModalCreatePost({ children }) {
                                         // fallbackSrc={avatar}
                                         height={40}
                                         width={40}
-                                        src={userInfo.photo}
+                                        src={userInfo?.photo}
                                     />
                                     {/* <img loading="eager" src={avatar} onError={(e) => {
                                         e.target.src = avatar
