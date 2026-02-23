@@ -52,7 +52,7 @@ export default function Profile() {
                 radius="full"
                 height={140}
                 src={userInfo?.photo || avatar}
-                className="z-0 border-4 border-white dark:border-background-dark shadow-xl bg-primary"
+                className="z-0 object-cover border-4 border-white dark:border-background-dark shadow-xl bg-primary"
               />
               {/* <img className="size-32 md:size-40 rounded-full border-4 border-white dark:border-background-dark shadow-xl object-cover bg-white" data-alt="Alex Rivers circular profile picture" src={userInfo?.photo} /> */}
               <ModalUpdateProfileImg>

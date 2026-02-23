@@ -22,6 +22,7 @@ export default function CreatePost() {
                             height={40}
                             width={40}
                             src={userInfo?.photo}
+                            className="object-cover"
                         />
                         </div>
                         {/* <img src={avatar} alt="avatar" className="h-12 w-12 shrink-0 rounded-full bg-cover bg-center border-2 border-primary/10" /> */}

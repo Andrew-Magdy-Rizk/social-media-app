@@ -1,7 +1,7 @@
 import { Bookmark, Edit, Ellipsis, Heart, LoaderCircle, MessageSquare, Share2, Trash } from "lucide-react"
-import ImagePost from "../../assets/images/postImage.png"
+import ImagePost from "../../assets/images/postImage.png";
 import { getTimeAgo } from "../../utils/getTimeAgo";
-import avatar from "../../assets/avatars/avatar-1.png"
+import avatar from "../../assets/avatars/avatar-1.png";
 import Comment from "./Comment";
 import { Link } from "react-router-dom";
 import AllComponents from "./AllComponents";
@@ -65,6 +65,7 @@ export default function PostCard({ post, showAllComments = false }) {
                             height={40}
                             src={photo}
                             width={40}
+                            className="object-cover"
                             onError={(e) => {
                                 e.target.src = avatar
                             }}
@@ -117,6 +118,7 @@ export default function PostCard({ post, showAllComments = false }) {
                             src={post.image}
                             width="100%"
                             // loading="lazy"
+                            className="object-cover"
                         />
                     </div>
                 }

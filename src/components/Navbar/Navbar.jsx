@@ -84,7 +84,7 @@ export default function MyNavbar() {
             <Avatar
               isBordered
               as="button"
-              className="transition-transform"
+              className="transition-transform object-cover"
               color="secondary"
               name="Jason Hughes"
               size="sm"
