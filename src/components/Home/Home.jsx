@@ -35,6 +35,8 @@ export default function Home() {
   // }
 
   if (isError) {
+    console.log("error.response", error.response);
+    
     return addToast({
       title: error.response.statusText,
       description: error.response.data?.message,
