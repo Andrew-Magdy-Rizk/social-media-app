@@ -133,12 +133,10 @@ export default function ChangePassword() {
                     </div>
                 </div>
 
-                <Button disabled={isPending} size="lg" type="submit" className="w-full bg-primary text-white font-bold" variant="flat">
-                    {isPending ?
-                        <LoaderCircle className="animate-spinner-ease-spin" />
-                        :
-                        "Update Password"
-                    }
+                <Button isLoading={isPending} size="lg" type="submit" className="w-full bg-primary text-white font-bold" variant="flat">
+
+                    Update Password
+
                 </Button>
             </form>
         </>

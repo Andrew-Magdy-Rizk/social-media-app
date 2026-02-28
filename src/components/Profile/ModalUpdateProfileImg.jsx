@@ -73,12 +73,6 @@ export default function ModalUpdateProfileImg({ children }) {
         }
     });
 
-    console.log("isLoading", isPending);
-    console.log("is Error", isError);
-
-
-
-
 
     return (
         <>
@@ -184,12 +178,10 @@ export default function ModalUpdateProfileImg({ children }) {
                                 <Button variant="ghost" size="lg" className="font-bold text-md">
                                     Cancel
                                 </Button>
-                                <Button disabled={isPending} onPress={mutate} color="primary" size="lg" className="font-bold text-md">
-                                    {isPending ?
-                                        <LoaderCircle className="animate-spinner-ease-spin" />
-                                        :
-                                        <span className="flex gap-2 items-center"><CircleCheck /> Save Changes </span>
-                                    }
+                                <Button isLoading={isPending} onPress={mutate} color="primary" size="lg" className="font-bold text-md">
+
+                                    <span className="flex gap-2 items-center"><CircleCheck /> Save Changes </span>
+
                                 </Button>
                             </ModalFooter>
                         </>

@@ -226,8 +226,8 @@ export default function RegisterForm() {
                     By signing up, I agree to the <a className="text-primary font-semibold hover:underline" href="#">Terms of Service</a> and <a className="text-primary font-semibold hover:underline" href="#">Privacy Policy</a>.
                 </Checkbox>
 
-                <Button disabled={isLoading} size="lg" type="submit" className="w-full bg-primary text-white font-bold" variant="flat">
-                    {isLoading ? <LoaderCircle className="animate-spinner-ease-spin" /> : "Submit"}
+                <Button isLoading={isLoading} size="lg" type="submit" className="w-full bg-primary text-white font-bold" variant="flat">
+                    Submit
                 </Button>
             </Form>
 

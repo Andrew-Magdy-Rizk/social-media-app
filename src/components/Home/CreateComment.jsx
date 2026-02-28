@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import avatar from "../../assets/avatars/avatar-1.png"
 import axios from "axios"
 import { useRef, useState } from "react"
-import { addToast, Image, Textarea } from "@heroui/react";
+import { addToast, Button, Image, Textarea } from "@heroui/react";
 import { useContext } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
-import { CircleX, ImageIcon, LoaderCircle } from "lucide-react";
+import { CircleX, ImageIcon } from "lucide-react";
 import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 export default function CreateComment({ postId, queryKey }) {
 
@@ -107,16 +107,16 @@ export default function CreateComment({ postId, queryKey }) {
 
                             <div className="w-full relative">
                                 <img src={URL.createObjectURL(preview)} alt={preview} className="h-15 ml-auto object-cover rounded-xl" />
-                                <button onClick={() => handelChangePreview(null)} className="absolute cursor-pointer right-2 top-2">
+                                <Button size="sm" onPress={() => handelChangePreview(null)} className="absolute cursor-pointer right-2 top-2">
                                     <CircleX size={14} />
-                                </button>
+                                </Button>
                             </div>
                         </>
                         }
                         <div className="flex justify-end">
-                            <button onClick={mutate} disabled={isPending} className="bg-primary text-white px-6 py-2 rounded-full font-bold text-sm shadow-md hover:shadow-lg transition-all">
-                                {isPending ? <LoaderCircle className="animate-spinner-ease-spin" /> : "Post Comment"}
-                            </button>
+                            <Button isLoading={isPending} onPress={mutate} className="bg-primary text-white px-6 py-2 rounded-full font-bold text-sm shadow-md hover:shadow-lg transition-all">
+                              Post Comment
+                            </Button>
                         </div>
                     </div>
                 </div>

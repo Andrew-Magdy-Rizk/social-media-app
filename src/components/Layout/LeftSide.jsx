@@ -2,6 +2,7 @@ import { Bell, Compass, Home, Mail, PlusCircle, Settings, Share2, User } from 'l
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import ModalCreatePost from '../Home/ModalCreatePost';
+import { Button, useDisclosure } from '@heroui/react';
 
 export default function LeftSide() {
 
@@ -9,6 +10,7 @@ export default function LeftSide() {
     const { pathname } = useLocation();
 
     const [activeLink, setActiveLink] = useState(pathname);
+    const modal = useDisclosure();
 
     useEffect(() => {
         setActiveLink(pathname);
@@ -52,12 +54,11 @@ export default function LeftSide() {
                         <span className="text-sm font-semibold">Settings</span>
                     </a>
                 </nav>
-                <ModalCreatePost>
-                    <button className="cursor-pointer mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
+                <ModalCreatePost {...modal} />
+                    <Button onPress={modal.onOpen} className="cursor-pointer mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
                         <span className="material-symbols-outlined text-[20px]"><PlusCircle /></span>
                         <span>Create Post</span>
-                    </button>
-                </ModalCreatePost>
+                    </Button>
             </aside>
         </>
     )

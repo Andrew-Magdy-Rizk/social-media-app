@@ -4,15 +4,16 @@ import avatar from "../../assets/avatars/avatar-1.png"
 import ModalCreatePost from "./ModalCreatePost";
 import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 import { useContext } from "react";
-import { Image } from "@heroui/react";
+import { Image, useDisclosure } from "@heroui/react";
 export default function CreatePost() {
 
         const { userInfo } = useContext(userInfoContaxt);
+        const modal = useDisclosure();
 
     return (
         <>
-            <ModalCreatePost>
-                <div className="rounded-xl border border-primary/10 bg-white p-4 shadow-sm">
+            <ModalCreatePost {...modal} />
+                <div onClick={modal.onOpen} className="rounded-xl border border-primary/10 bg-white p-4 shadow-sm">
                     <div className="flex gap-2">
                         <div className="h-20 w-20">
                         <Image
@@ -48,7 +49,6 @@ export default function CreatePost() {
                         </div>
                     </div>
                 </div>
-            </ModalCreatePost>
 
             {/* <Button onPress={onOpen}>Open Modal</Button> */}
 

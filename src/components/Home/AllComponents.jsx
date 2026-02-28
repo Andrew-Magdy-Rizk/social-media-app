@@ -35,7 +35,6 @@ export default function AllComponents({ postId }) {
     //     return null
     // }
     if (isError) {
-        console.log(error.response);
 
         addToast({
             title: error.response.data.message,
@@ -70,9 +69,9 @@ export default function AllComponents({ postId }) {
 
                 </div>
                 {/* View More Comments */}
-                <div className="p-4 text-center">
+                {/* <div className="p-4 text-center">
                     <button className="text-sm font-bold text-primary hover:underline">Show more comments</button>
-                </div>
+                </div> */}
             </div >
         </>
     )

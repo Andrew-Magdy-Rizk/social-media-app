@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ArrowRight, Eye, EyeClosed, LoaderCircle, MoveRight } from "lucide-react";
+import { Eye, EyeClosed, MoveRight } from "lucide-react";
 import { Form, Input, Button, Checkbox, addToast } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod"
@@ -31,8 +31,7 @@ export default function LoginForm() {
         try {
             setIsLoading(true);
             const res = await axios.post("https://route-posts.routemisr.com/users/signin", formData);
-            console.log(res);
-            
+
             addToast({
                 title: res.data.message,
                 color: "success",
@@ -40,7 +39,6 @@ export default function LoginForm() {
             handelLogin(res.data.data?.token)
             navigate("/")
         } catch (err) {
-            console.log("err", err.response.data.message);
             addToast({
                 title: err.response.statusText,
                 description: err.response.data?.message,
@@ -61,7 +59,7 @@ export default function LoginForm() {
 
         resolver: zodResolver(registerSchema)
     });
-    
+
 
     return (
         <>
@@ -119,11 +117,11 @@ export default function LoginForm() {
                     Remember me for 30 days
                 </Checkbox>
 
-                <Button disabled={isLoading} size="lg" type="submit" className="w-full bg-primary text-white font-bold group" variant="flat">
-                    {isLoading ? <LoaderCircle className="animate-spinner-ease-spin" /> :<div className="flex gap-2">Log In<span className="group-hover:translate-x-0.5 duration-300"><MoveRight color="white"/></span></div>} 
+                <Button isLoading={isLoading} size="lg" type="submit" className="w-full bg-primary text-white font-bold group" variant="flat">
+                    <div className="flex gap-2">Log In<span className="group-hover:translate-x-0.5 duration-300"><MoveRight color="white" /></span></div>
                 </Button>
             </Form>
-            
+
 
 
 

@@ -47,7 +47,7 @@ export default function MyNavbar() {
     if (!isLoading && !isError) {
       handelSetUserId(user._id);
       handelSetUserInfo(user);
-      console.log("userInfo", user);
+
     };
   },[token, isLoading])
 
