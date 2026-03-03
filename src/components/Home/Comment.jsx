@@ -47,7 +47,20 @@ export default function Comment({ comment, postId, queryKey }) {
 
 
     const updateComment = () => {
-        return axios.put(`https://route-posts.routemisr.com/posts/${postId}/comments/${commentId}`);
+
+        const formdata = new FormData();
+        formdata.append("content", oldContent);
+        if (preview) {
+            formdata.append("image", preview);
+        }
+
+        return axios.put(`https://route-posts.routemisr.com/posts/${postId}/comments/${commentId}`, formdata, {
+            headers: {
+                token,
+                
+            }
+
+        });
     };
 
     const { mutate: mutateUpdate, isPending: isPendingUpdate } = useMutation({
