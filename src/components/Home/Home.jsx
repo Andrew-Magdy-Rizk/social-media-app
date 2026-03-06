@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import CreatePost from "./CreatePost";
 import PostCard from "./PostCard";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
-import { addToast } from "@heroui/react";
+import { addToast, Button } from "@heroui/react";
 import SkeletonPost from "../Skeletons/SkeletonPost";
 import { Helmet } from "react-helmet";
 
@@ -13,22 +13,39 @@ export default function Home() {
 
   const { token } = useContext(authContaxt);
 
-  const getPosts = () => {
-    return axios.get("https://route-posts.routemisr.com/posts?limit=20&sort=-createdAt", {
+
+  const getPosts = ({ pageParam }) => {
+    return axios.get(`https://route-posts.routemisr.com/posts?page=${pageParam}&limit=20&sort=-createdAt`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    })
-  }
-  const { data, isLoading, isError, error } = useQuery({
+    });
+  };
+
+
+  const { data, isLoading, isError, error, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["getPosts"],
     queryFn: getPosts,
 
+    getNextPageParam: (lastPage, pages) => {
+      // console.log("lastPage", lastPage);
+      // console.log("page", pages);
+
+      const posts = lastPage.data.data.posts;
+
+      if (posts.length === 20) {
+        return pages.length + 1;
+      }
+
+      return undefined;
+
+    },
+    initialPageParam: 1,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 10,
     gcTime: 1000 * 60 * 1
 
-  })
+  });
 
 
 
@@ -60,12 +77,33 @@ export default function Home() {
           <SkeletonPost />
         </>
           :
-          data?.data?.data?.posts.map((post) =>
-            <React.Fragment key={post._id}>
-              <PostCard post={post} />
-            </React.Fragment>
+          data?.pages?.map((page) =>
+
+            page.data?.data?.posts.map((post) =>
+              // <React.Fragment key={}>
+              <PostCard key={post._id} post={post} />
+              // </React.Fragment>
+              // console.log(post)
+
+            )
+
+
           )
         }
+
+        <div className="mx-auto">
+          <Button
+            color="primary"
+            isLoading={isFetchingNextPage}
+            onPress={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetching}
+          >
+            {
+              hasNextPage
+                ? 'Load More'
+                : 'Nothing more to load'}
+          </Button>
+        </div>
       </div>
 
 
