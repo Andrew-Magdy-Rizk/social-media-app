@@ -89,10 +89,10 @@ export default function PostCard({ post, showAllComments = false }) {
     mutationFn: likePost,
 
     onSuccess: () => {
-      addToast({
-        title: "Like Added",
-        color: "success",
-      });
+      // addToast({
+      //   title: "Like Added",
+      //   color: "success",
+      // });
       queryClient.invalidateQueries({ queryKey: ["getPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getPostDetials", postId] });
       queryClient.invalidateQueries({ queryKey: ["feedPosts"] });
@@ -198,11 +198,14 @@ export default function PostCard({ post, showAllComments = false }) {
           </div>
         )}
         <div className="flex items-center gap-6 border-y border-primary/5 py-2">
-          <Button color="none" spinner={null} isLoading={likeIspending} onPress={likeMutate} className={`flex items-center gap-1.5 ${likes?.includes(userId) ? "text-red-500" : "text-[#617589]"} hover:text-red-500   transition-all`}>
-            <span className="material-symbols-outlined text-[22px]">
-              <Heart />
-            </span>
-            <span className="text-xs font-bold">{likesCount || 0}</span>
+          <Button color="none" isLoading={likeIspending} onPress={likeMutate} className={`flex items-center gap-1.5 ${likes?.includes(userId) ? "text-red-500" : "text-[#617589]"} hover:text-red-500   transition-all`}>
+            {!likeIspending && <>
+              <span className="material-symbols-outlined text-[22px]">
+                <Heart />
+              </span>
+              <span className="text-xs font-bold">{likesCount || 0}</span>
+            </>
+            }
           </Button>
           <button className="flex items-center gap-1.5 text-primary transition-all">
             <span className="material-symbols-outlined text-[22px]">
