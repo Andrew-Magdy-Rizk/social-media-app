@@ -6,11 +6,12 @@ import React, { useContext } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
 import { addToast } from "@heroui/react";
 import SkeletonPost from "../Skeletons/SkeletonPost";
+import { Helmet } from "react-helmet";
 
 
 export default function Home() {
 
-  const { token, userId } = useContext(authContaxt);
+  const { token } = useContext(authContaxt);
 
   const getPosts = () => {
     return axios.get("https://route-posts.routemisr.com/posts?limit=20&sort=-createdAt", {
@@ -25,14 +26,11 @@ export default function Home() {
 
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 10,
-    gcTime: 1000 * 60  * 1
+    gcTime: 1000 * 60 * 1
 
   })
 
 
-  // if (isLoading) {
-  //   return <section className="w-full h-full bg-gray-100 flex justify-center items-center"><span className="animate-spinner-linear-spin inline-block"><Loader2 size={32} className="text-primary" /></span></section>
-  // }
 
   if (isError) {
     return addToast({
@@ -48,6 +46,9 @@ export default function Home() {
   return (
     <>
 
+      <Helmet>
+        <title>Home Page</title>
+      </Helmet>
       {/* Create Post Widget */}
       <CreatePost />
       {/* Feed Section */}

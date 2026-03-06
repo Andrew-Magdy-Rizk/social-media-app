@@ -39,24 +39,25 @@ export default function PostCard({ post, showAllComments = false }) {
   const {
     topComment,
     commentsCount,
-    LikesCount,
+    likesCount,
     sharesCount,
     body,
     image,
+    likes,
     _id: postId,
   } = post;
 
   const queryClient = useQueryClient();
 
-  const deleteComment = () => {
+  const deletePost = () => {
     return axios.delete(`https://route-posts.routemisr.com/posts/${postId}`, {
       headers: {
         token,
       },
     });
   };
-  const { mutate, isPending } = useMutation({
-    mutationFn: deleteComment,
+  const { mutate: deleteMutate, isPending: deleteIspending } = useMutation({
+    mutationFn: deletePost,
 
     onSuccess: () => {
       addToast({
@@ -76,6 +77,36 @@ export default function PostCard({ post, showAllComments = false }) {
     },
   });
 
+
+  const likePost = () => {
+    return axios.put(`https://route-posts.routemisr.com/posts/${postId}/like`, null, {
+      headers: {
+        token
+      }
+    });
+  };
+  const { mutate: likeMutate, isPending: likeIspending } = useMutation({
+    mutationFn: likePost,
+
+    onSuccess: () => {
+      addToast({
+        title: "Like Added",
+        color: "success",
+      });
+      queryClient.invalidateQueries({ queryKey: ["getPosts"] });
+      queryClient.invalidateQueries({ queryKey: ["getPostDetials", postId] });
+      queryClient.invalidateQueries({ queryKey: ["feedPosts"] });
+    },
+
+    onError: (err) => {
+      addToast({
+        title: err.response.data.message,
+        color: "danger",
+      });
+    },
+  });
+
+
   return (
     <>
       <ModalCreatePost {...modal} postId={post._id} isUpdate={true} postDetails={{ body, image }} />
@@ -83,7 +114,6 @@ export default function PostCard({ post, showAllComments = false }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image
-              loading="eager"
               alt={post.body}
               // fallbackSrc={avatar}
               height={40}
@@ -94,9 +124,6 @@ export default function PostCard({ post, showAllComments = false }) {
                 e.target.src = avatar;
               }}
             />
-            {/* <img loading="eager" src={photo} onError={(e) => {
-                            e.target.src = avatar
-                        }} alt="avatar" className="h-10 w-10 rounded-full bg-cover bg-center border border-primary/5" /> */}
             <div className="flex flex-col">
               <span className="text-sm font-bold text-[#111418]">{name}</span>
               <span className="text-xs text-[#617589]">
@@ -104,7 +131,7 @@ export default function PostCard({ post, showAllComments = false }) {
               </span>
             </div>
           </div>
-          <Dropdown>
+          <Dropdown isDisabled={deleteIspending}>
             <DropdownTrigger>
               <Button
                 variant="light"
@@ -139,13 +166,13 @@ export default function PostCard({ post, showAllComments = false }) {
 
                   <DropdownItem
                     textValue="delete"
-                    onPress={isPending ? undefined : mutate}
+                    onPress={deleteIspending ? undefined : deleteMutate}
                     startContent={<Trash size={16} />}
                     key="delete"
                     className="text-danger"
                     color="danger"
                   >
-                    {isPending ? (
+                    {deleteIspending ? (
                       <LoaderCircle className="animate-spinner-ease-spin" />
                     ) : (
                       "Delete"
@@ -166,18 +193,17 @@ export default function PostCard({ post, showAllComments = false }) {
               // fallbackSrc={ImagePost}
               src={post.image}
               width="100%"
-              // loading="lazy"
               className="object-cover"
             />
           </div>
         )}
         <div className="flex items-center gap-6 border-y border-primary/5 py-2">
-          <button className="flex items-center gap-1.5 text-[#617589] hover:text-red-500 transition-all">
+          <Button color="none" spinner={null} isLoading={likeIspending} onPress={likeMutate} className={`flex items-center gap-1.5 ${likes?.includes(userId) ? "text-red-500" : "text-[#617589]"} hover:text-red-500   transition-all`}>
             <span className="material-symbols-outlined text-[22px]">
               <Heart />
             </span>
-            <span className="text-xs font-bold">{LikesCount || 0}</span>
-          </button>
+            <span className="text-xs font-bold">{likesCount || 0}</span>
+          </Button>
           <button className="flex items-center gap-1.5 text-primary transition-all">
             <span className="material-symbols-outlined text-[22px]">
               <MessageSquare />

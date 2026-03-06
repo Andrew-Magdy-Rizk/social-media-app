@@ -9,6 +9,7 @@ import FeedPosts from "./FeedPosts";
 import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 import ModalUpdateProfileImg from "./ModalUpdateProfileImg";
 import avatar from "../../assets/avatars/avatar-1.png";
+import { Helmet } from "react-helmet";
 
 
 
@@ -22,6 +23,10 @@ export default function Profile() {
 
   return (
     <>
+
+<Helmet>
+    <title>Profile Page</title>
+</Helmet>
       {/* Profile Header Section */}
       <div className="relative">
         <div className="h-48 md:h-64 w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">

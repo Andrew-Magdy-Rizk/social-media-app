@@ -7,6 +7,7 @@ import PostCard from '../Home/PostCard';
 import { ArrowLeft } from 'lucide-react';
 import SkeletonPost from '../Skeletons/SkeletonPost';
 import NotFound from '../NotFound/NotFound';
+import { Helmet } from 'react-helmet';
 
 export default function PostDetials() {
 
@@ -40,20 +41,25 @@ export default function PostDetials() {
 
 
     return (
-        <section className='bg-gray-100 px-2 lg:px-6'>
-            <div className="flex items-center gap-2 py-6 group">
-                <Link to="/" className="flex items-center gap-2 text-primary font-semibold hover:underline">
-                    <span className="material-symbols-outlined text-sm group-hover:-translate-x-0.5 duration-300"><ArrowLeft /></span>
-                    Back to feed
-                </Link>
-            </div>
+        <>
+            <Helmet>
+                <title>Post Details</title>
+            </Helmet>
+            <section className='bg-gray-100 px-2 lg:px-6'>
+                <div className="flex items-center gap-2 py-6 group">
+                    <Link to="/" className="flex items-center gap-2 text-primary font-semibold hover:underline">
+                        <span className="material-symbols-outlined text-sm group-hover:-translate-x-0.5 duration-300"><ArrowLeft /></span>
+                        Back to feed
+                    </Link>
+                </div>
 
-            {isLoading ?
-                <SkeletonPost />
-                :
-                <PostCard showAllComments={true} post={data.data.data.post} />
-            }
+                {isLoading ?
+                    <SkeletonPost />
+                    :
+                    <PostCard showAllComments={true} post={data.data.data.post} />
+                }
 
-        </section>
+            </section>
+        </>
     )
 }

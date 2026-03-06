@@ -180,7 +180,7 @@ export default function Comment({ comment, postId, queryKey }) {
 
                 {commentCreator._id === userId && !isUpdate ?
                     isPendingDelete ? <LoaderCircle className="animate-spinner-ease-spin text-primary" /> :
-                        <Dropdown>
+                        <Dropdown isDisabled={isPendingDelete}>
                             <DropdownTrigger>
                                 <Button variant="light" size="sm" className="text-[#617589] hover:text-primary transition-all">
                                     <Ellipsis />
