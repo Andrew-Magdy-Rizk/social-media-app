@@ -56,8 +56,10 @@ export default function MyNavbar() {
     <Navbar position="sticky" isBordered className="z-50">
       <NavbarContent justify="center">
         <NavbarBrand className="mr-4">
+          <Link to={"/"} className="flex items-center">
           <MessageCircleHeart size={32} className="text-primary me-2" />
           <p className="hidden sm:block font-bold text-primary">SocialApp</p>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent>

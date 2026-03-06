@@ -49,7 +49,7 @@ export default function PostDetials() {
                 <div className="flex items-center gap-2 py-6 group">
                     <Link to="/" className="flex items-center gap-2 text-primary font-semibold hover:underline">
                         <span className="material-symbols-outlined text-sm group-hover:-translate-x-0.5 duration-300"><ArrowLeft /></span>
-                        Back to feed
+                        Back to Posts
                     </Link>
                 </div>
 

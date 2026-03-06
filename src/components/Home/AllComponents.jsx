@@ -9,7 +9,7 @@ import SkeletonComment from "../Skeletons/SkeletonComment";
 import { addToast } from "@heroui/react";
 
 
-export default function AllComponents({ postId }) {
+export default function AllComponents({ postId, userCreatePost }) {
 
 
     const { token } = useContext(authContaxt);
@@ -62,7 +62,7 @@ export default function AllComponents({ postId }) {
                             :
                             data.data.data?.comments?.map((comment) =>
                                 <React.Fragment key={comment._id}>
-                                    <Comment postId={postId} queryKey={["getAllCommets", postId]} comment={comment} />
+                                    <Comment userCreatePost={userCreatePost} postId={postId} queryKey={["getAllCommets", postId]} comment={comment} />
                                 </React.Fragment>
                             )
                     }

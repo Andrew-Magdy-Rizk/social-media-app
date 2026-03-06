@@ -2,13 +2,9 @@ import {
   Bookmark,
   Edit,
   Ellipsis,
-  Heart,
-  LoaderCircle,
   MessageSquare,
   Share2,
-  Trash,
 } from "lucide-react";
-import ImagePost from "../../assets/images/postImage.png";
 import { getTimeAgo } from "../../utils/getTimeAgo";
 import avatar from "../../assets/avatars/avatar-1.png";
 import Comment from "./Comment";
@@ -16,7 +12,6 @@ import { Link } from "react-router-dom";
 import AllComponents from "./AllComponents";
 import CreateComment from "./CreateComment";
 import {
-  addToast,
   Button,
   Dropdown,
   DropdownItem,
@@ -27,13 +22,13 @@ import {
 } from "@heroui/react";
 import { useContext } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import ModalCreatePost from "./ModalCreatePost";
+import LikeButton from "../actions/LikeButton";
+import DeleteButton from "../actions/DeleteButton";
 export default function PostCard({ post, showAllComments = false }) {
   const { photo, name, _id: userIdCreated } = post.user;
 
-  const { userId, token } = useContext(authContaxt);
+  const { userId } = useContext(authContaxt);
   const modal = useDisclosure();
 
   const {
@@ -47,64 +42,6 @@ export default function PostCard({ post, showAllComments = false }) {
     _id: postId,
   } = post;
 
-  const queryClient = useQueryClient();
-
-  const deletePost = () => {
-    return axios.delete(`https://route-posts.routemisr.com/posts/${postId}`, {
-      headers: {
-        token,
-      },
-    });
-  };
-  const { mutate: deleteMutate, isPending: deleteIspending } = useMutation({
-    mutationFn: deletePost,
-
-    onSuccess: () => {
-      addToast({
-        title: "Post Deleted",
-        color: "success",
-      });
-      queryClient.invalidateQueries({ queryKey: ["getPosts"] });
-      queryClient.invalidateQueries({ queryKey: ["getPostDetials", postId] });
-      queryClient.invalidateQueries({ queryKey: ["feedPosts"] });
-    },
-
-    onError: (err) => {
-      addToast({
-        title: err.response.data.message,
-        color: "danger",
-      });
-    },
-  });
-
-
-  const likePost = () => {
-    return axios.put(`https://route-posts.routemisr.com/posts/${postId}/like`, null, {
-      headers: {
-        token
-      }
-    });
-  };
-  const { mutate: likeMutate, isPending: likeIspending } = useMutation({
-    mutationFn: likePost,
-
-    onSuccess: () => {
-      // addToast({
-      //   title: "Like Added",
-      //   color: "success",
-      // });
-      queryClient.invalidateQueries({ queryKey: ["getPosts"] });
-      queryClient.invalidateQueries({ queryKey: ["getPostDetials", postId] });
-      queryClient.invalidateQueries({ queryKey: ["feedPosts"] });
-    },
-
-    onError: (err) => {
-      addToast({
-        title: err.response.data.message,
-        color: "danger",
-      });
-    },
-  });
 
 
   return (
@@ -131,7 +68,7 @@ export default function PostCard({ post, showAllComments = false }) {
               </span>
             </div>
           </div>
-          <Dropdown isDisabled={deleteIspending}>
+          <Dropdown>
             <DropdownTrigger>
               <Button
                 variant="light"
@@ -166,17 +103,13 @@ export default function PostCard({ post, showAllComments = false }) {
 
                   <DropdownItem
                     textValue="delete"
-                    onPress={deleteIspending ? undefined : deleteMutate}
-                    startContent={<Trash size={16} />}
+                    // onPress={deleteIspending ? undefined : deleteMutate}
+                    // startContent={<Trash size={16} />}
                     key="delete"
-                    className="text-danger"
-                    color="danger"
+                    // className="text-danger"
+                    // color="danger"
                   >
-                    {deleteIspending ? (
-                      <LoaderCircle className="animate-spinner-ease-spin" />
-                    ) : (
-                      "Delete"
-                    )}
+                    <DeleteButton postId={postId}/>
                   </DropdownItem>
                 </>
               )}
@@ -198,15 +131,7 @@ export default function PostCard({ post, showAllComments = false }) {
           </div>
         )}
         <div className="flex items-center gap-6 border-y border-primary/5 py-2">
-          <Button color="none" isLoading={likeIspending} onPress={likeMutate} className={`flex items-center gap-1.5 ${likes?.includes(userId) ? "text-red-500" : "text-[#617589]"} hover:text-red-500   transition-all`}>
-            {!likeIspending && <>
-              <span className="material-symbols-outlined text-[22px]">
-                <Heart />
-              </span>
-              <span className="text-xs font-bold">{likesCount || 0}</span>
-            </>
-            }
-          </Button>
+          <LikeButton likes={likes} likesCount={likesCount} postId={postId} />
           <button className="flex items-center gap-1.5 text-primary transition-all">
             <span className="material-symbols-outlined text-[22px]">
               <MessageSquare />
@@ -235,6 +160,7 @@ export default function PostCard({ post, showAllComments = false }) {
               queryKey={["getPosts"]}
               postId={postId}
               comment={topComment}
+              userCreatePost={userIdCreated}
             />
           </>
         )}
@@ -247,7 +173,7 @@ export default function PostCard({ post, showAllComments = false }) {
         )}
       </article >
       {/* Comments Section */}
-      {showAllComments && <AllComponents postId={post._id} />}
+      {showAllComments && <AllComponents userCreatePost={userIdCreated} postId={post._id} />}
     </>
   );
 }
