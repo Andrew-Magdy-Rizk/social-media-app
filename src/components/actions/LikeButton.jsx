@@ -23,10 +23,6 @@ export default function LikeButton({postId, commentId = null, likes, likesCount}
         mutationFn: likeApi,
 
         onSuccess: () => {
-            // addToast({
-            //   title: "Like Added",
-            //   color: "success",
-            // });
             queryClient.invalidateQueries({ queryKey: ["getPosts"] });
             queryClient.invalidateQueries({ queryKey: ["getPostDetials", postId] });
             queryClient.invalidateQueries({ queryKey: ["feedPosts"] });

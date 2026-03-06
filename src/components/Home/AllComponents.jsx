@@ -31,9 +31,7 @@ export default function AllComponents({ postId, userCreatePost }) {
 
     });
 
-    // if (isLoading) {
-    //     return null
-    // }
+    
     if (isError) {
 
         addToast({

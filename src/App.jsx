@@ -6,6 +6,7 @@ import AuthContaxtProvider from "./context/AuthContaxtProvider";
 import UserInfoContaxtProvider from "./context/UserInfoContaxtProvider";
 import { Offline, Online } from "react-detect-offline";
 import OfflinePage from "./components/offline/OfflinePage";
+import { HelmetProvider } from "react-helmet-async";
 
 
 const queryClientConfig = new QueryClient();
@@ -14,18 +15,20 @@ export default function App() {
   return (
     <>
       <Online>
-        <QueryClientProvider client={queryClientConfig}>
-          <AuthContaxtProvider>
-            <UserInfoContaxtProvider>
-              <HeroUIProvider>
-                <ToastProvider placement="top-center" />
-                <RouterProvider router={browserRouter} />
-              </HeroUIProvider>
-            </UserInfoContaxtProvider>
-          </AuthContaxtProvider>
-        </QueryClientProvider>
+        <HelmetProvider>
+          <QueryClientProvider client={queryClientConfig}>
+            <AuthContaxtProvider>
+              <UserInfoContaxtProvider>
+                <HeroUIProvider>
+                  <ToastProvider placement="top-center" />
+                  <RouterProvider router={browserRouter} />
+                </HeroUIProvider>
+              </UserInfoContaxtProvider>
+            </AuthContaxtProvider>
+          </QueryClientProvider>
+        </HelmetProvider>
       </Online>
-      
+
       <Offline>
         < OfflinePage />
       </Offline>

@@ -1,5 +1,5 @@
 import { Camera, LockKeyhole, Pencil, Share2 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import postImage from "../../assets/images/postImage.png";
 import ChangePassword from "./ChangePassword";
@@ -9,7 +9,7 @@ import FeedPosts from "./FeedPosts";
 import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 import ModalUpdateProfileImg from "./ModalUpdateProfileImg";
 import avatar from "../../assets/avatars/avatar-1.png";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 
 

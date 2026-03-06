@@ -2,7 +2,7 @@ import { Bell, Home, Plus, Search, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ModalCreatePost from "./ModalCreatePost";
-import { Button, useDisclosure } from "@heroui/react";
+import { useDisclosure } from "@heroui/react";
 
 export default function MobileNavbar() {
 

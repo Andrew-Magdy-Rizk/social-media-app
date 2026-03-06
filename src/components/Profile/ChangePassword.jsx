@@ -2,7 +2,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { addToast, Button, Input } from "@heroui/react";
-import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";

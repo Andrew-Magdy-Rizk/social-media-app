@@ -7,7 +7,7 @@ import PostCard from '../Home/PostCard';
 import { ArrowLeft } from 'lucide-react';
 import SkeletonPost from '../Skeletons/SkeletonPost';
 import NotFound from '../NotFound/NotFound';
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 
 export default function PostDetials() {
 

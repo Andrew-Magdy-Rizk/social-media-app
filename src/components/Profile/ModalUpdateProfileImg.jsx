@@ -1,7 +1,7 @@
 
-import { Camera, ChevronDown, CircleCheck, CircleX, CloudUpload, Earth, Ellipsis, Gift, ImageIcon, LoaderCircle, LocationEdit, Pen, SmileIcon, Trash2, Undo2, Upload } from "lucide-react";
+import { Camera, CircleCheck, CloudUpload, Pen, Trash2, Undo2, Upload } from "lucide-react";
 import avatar from "../../assets/avatars/avatar-1.png";
-import { addToast, Button, Image, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@heroui/react";
+import { addToast, Button, Image, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/react";
 import { useContext, useRef, useState } from "react";
 import { userInfoContaxt } from "../../context/UserInfoContaxtProvider";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default function ModalUpdateProfileImg({ children }) {
 
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [preview, setPreview] = useState(null);
-    const { userInfo, handelSetUserInfo } = useContext(userInfoContaxt);
+    const { userInfo } = useContext(userInfoContaxt);
     const { token } = useContext(authContaxt);
     const queryClient = useQueryClient();
     const ImageInput = useRef();

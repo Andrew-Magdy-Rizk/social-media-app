@@ -1,19 +1,12 @@
 import { useState } from "react";
-import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 import { Form, Input, Button, Checkbox, addToast } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// {
-//     "name": "Ahmed Bahnasy",
-//     "email":"bahnasy2040101@gmail.com",
-//     "password":"Bahnasy@123",
-//     "rePassword":"Bahnasy@123",
-//     "dateOfBirth":"7-10-1994",
-//     "gender":"male"
-// }
+
 
 const registerSchema = z.object({
     name: z.string().nonempty("Enter The Full Name").min(3, "At least 3 letters must be entered").max(30, "Maximum 30 characters"),

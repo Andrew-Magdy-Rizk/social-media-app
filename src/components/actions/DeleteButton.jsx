@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useContext } from 'react'
 import { authContaxt } from '../../context/AuthContaxtProvider';
 import axios from 'axios';
-import { addToast, Button, DropdownItem } from '@heroui/react';
+import { addToast, Button } from '@heroui/react';
 import { Trash } from 'lucide-react';
 
 export default function DeleteButton({ postId, commentId = null }) {

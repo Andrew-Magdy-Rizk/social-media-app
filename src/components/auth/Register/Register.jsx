@@ -5,7 +5,7 @@ import HeaderMobile from "../HeaderMobile";
 import { Link } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 import Footer from "../../Footer/Footer";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Register() {
 

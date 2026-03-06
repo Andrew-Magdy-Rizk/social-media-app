@@ -1,12 +1,12 @@
-import { keepPreviousData, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import CreatePost from "./CreatePost";
 import PostCard from "./PostCard";
 import axios from "axios";
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { authContaxt } from "../../context/AuthContaxtProvider";
 import { addToast, Button } from "@heroui/react";
 import SkeletonPost from "../Skeletons/SkeletonPost";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 
 export default function Home() {

@@ -3,7 +3,8 @@ import HeaderMobile from "../HeaderMobile";
 import HeroLogin from "./HeroLogin";
 import LoginForm from "./LoginForm";
 import Footer from "../../Footer/Footer";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 
 export default function Login() {

@@ -13,9 +13,7 @@ export default function HeroLogin() {
                 </div>
                 <div className="relative z-20 flex flex-col justify-between p-16 w-full">
                     <div className="flex items-center gap-3 text-white">
-                        {/* <div className="size-10 bg-white/20 backdrop-blur-md rounded-lg flex items-center justify-center"> */}
-                            <MessageCircleHeart size={32} className="white" />
-                        {/* </div> */}
+                        <MessageCircleHeart size={32} className="white" />
                         <span className="text-2xl font-bold tracking-tight">SocialApp</span>
                     </div>
                     <div className="max-w-md">

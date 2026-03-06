@@ -5,7 +5,6 @@ import {
   Ellipsis,
   Gift,
   ImageIcon,
-  LoaderCircle,
   LocationEdit,
   SmileIcon,
 } from "lucide-react";
@@ -19,7 +18,7 @@ import {
   ModalFooter,
   ModalHeader,
   Textarea,
-  useDisclosure,
+
 } from "@heroui/react";
 import { useContext, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -171,9 +170,7 @@ export default function ModalCreatePost({
                     width={40}
                     src={userInfo?.photo}
                   />
-                  {/* <img loading="eager" src={avatar} onError={(e) => {
-                                        e.target.src = avatar
-                                    }} alt="avatar" className="h-10 w-10 rounded-full bg-cover bg-center border border-primary/5" /> */}
+      
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-[#111418]">
                       Name

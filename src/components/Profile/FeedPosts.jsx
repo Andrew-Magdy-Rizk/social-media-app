@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import { authContaxt } from "../../context/AuthContaxtProvider"
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query"; import SkeletonPost from "../Skeletons/SkeletonPost";

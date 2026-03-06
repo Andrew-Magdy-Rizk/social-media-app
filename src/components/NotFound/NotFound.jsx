@@ -1,4 +1,4 @@
-import { ArrowLeft, HelpCircle } from "lucide-react";
+import { ArrowLeft, HelpCircle, Link2Off } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
@@ -14,7 +14,7 @@ export default function NotFound() {
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-white dark:bg-background-dark p-6 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                <span className="material-symbols-outlined text-primary text-6xl md:text-8xl">link_off</span>
+                <Link2Off color="#155DFC" size={50} />
               </div>
             </div>
           </div>
@@ -33,10 +33,10 @@ export default function NotFound() {
               <ArrowLeft className="group-hover:-translate-x-0.5 duration-300" />
               Back to Home Feed
             </Link>
-            <Link to={"/"} className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl font-semibold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+            {/* <Link to={"/"} className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl font-semibold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2"> */}
               <HelpCircle />
               Help Center
-            </Link>
+            {/* </Link> */}
           </div>
           {/* Secondary Links */}
           <div className="pt-8 flex flex-wrap justify-center gap-6 text-sm text-slate-400 dark:text-slate-500">
